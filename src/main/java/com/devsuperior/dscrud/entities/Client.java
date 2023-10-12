@@ -1,7 +1,6 @@
 package com.devsuperior.dscrud.entities;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -85,27 +84,5 @@ public class Client {
 		this.children = children;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(birthDate, children, cpf, id, income, name);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Client other = (Client) obj;
-		return Objects.equals(birthDate, other.birthDate) && Objects.equals(children, other.children)
-				&& Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id)
-				&& Objects.equals(income, other.income) && Objects.equals(name, other.name);
-	}
-
-	
-	
-	
 	
 }

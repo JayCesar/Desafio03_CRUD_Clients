@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.devsuperior.dscrud.entities.dto.ClientDTO;
+import com.devsuperior.dscrud.dto.ClientDTO;
 import com.devsuperior.dscrud.services.ClientService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/clients")
@@ -38,7 +40,7 @@ public class ClientController {
 	}
 	
 	@PostMapping 
-	public ResponseEntity<ClientDTO> insert(@RequestBody ClientDTO dto){
+	public ResponseEntity<ClientDTO> insert(@Valid @RequestBody ClientDTO dto){
 		dto = clientService.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(dto.getId()).toUri();
@@ -46,7 +48,7 @@ public class ClientController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO dto){
+	public ResponseEntity<ClientDTO> update(@PathVariable Long id,@Valid @RequestBody ClientDTO dto){
 		dto = clientService.update(id, dto);
 		return ResponseEntity.ok(dto);
 	}

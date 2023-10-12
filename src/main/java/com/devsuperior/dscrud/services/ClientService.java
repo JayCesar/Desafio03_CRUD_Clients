@@ -3,15 +3,20 @@ package com.devsuperior.dscrud.services;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.devsuperior.dscrud.dto.ClientDTO;
 import com.devsuperior.dscrud.entities.Client;
-import com.devsuperior.dscrud.entities.dto.ClientDTO;
 import com.devsuperior.dscrud.repositories.ClientRepository;
+import com.devsuperior.dscrud.services.exeptions.DatabaseException;
 import com.devsuperior.dscrud.services.exeptions.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ClientService {
@@ -45,16 +50,25 @@ public class ClientService {
 	// PUT
 	@Transactional
 	public ClientDTO update(Long id, ClientDTO dto) {
-		Client entity = repository.getReferenceById(id);
-		copyToEntity(dto, entity);
-		entity = repository.save(entity);
-		return new ClientDTO(entity);
+		try {
+			Client entity = repository.getReferenceById(id);
+			copyToEntity(dto, entity);
+			entity = repository.save(entity);
+			return new ClientDTO(entity);
+		}catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Recurso não encontrado");
+		}
 	}
 	
 	// DELETE
-	@Transactional
+	@Transactional(propagation = Propagation.SUPPORTS)
 	public void delete(Long id) {
-		repository.deleteById(id);
+		if(!repository.existsById(id)) throw new ResourceNotFoundException("Recurso não encontrado");
+		try{
+			repository.deleteById(id);
+		}catch(DataIntegrityViolationException e) {
+			throw new DatabaseException("Falha de integridade referencial");
+		}
 	}
 	
 	
