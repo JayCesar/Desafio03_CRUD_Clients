@@ -1,13 +1,20 @@
 package com.devsuperior.dscrud;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DscrudApplication {
+public class DscrudApplication implements CommandLineRunner{
 
 	public static void main(String[] args) {
 		SpringApplication.run(DscrudApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
