@@ -1,0 +1,11 @@
+## 💻 Funcionalidades
+- [x] Busca por id retorna cliente existente
+- [x] Busca por id retorna 404 para cliente inexistente
+- [x] Busca paginada retorna listagem paginada corretamente
+- [x] Inserção de cliente insere cliente com dados válidos
+- [x] Inserção de cliente retorna 422 e mensagens customizadas com dados inválidos
+- [x] Atualização de cliente atualiza cliente com dados válidos
+- [x] Atualização de cliente retorna 404 para cliente inexistente
+- [x] Atualização de cliente retorna 422 e mensagens customizadas com dados inválidos
+- [x] Deleção de cliente deleta cliente existente
+- [x] Deleção de cliente retorna 404 para cliente inexistente 
