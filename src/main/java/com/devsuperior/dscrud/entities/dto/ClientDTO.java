@@ -3,14 +3,16 @@ package com.devsuperior.dscrud.entities.dto;
 import java.time.LocalDate;
 
 import com.devsuperior.dscrud.entities.Client;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ClientDTO {
 	
-private Long id;
-	
+	private Long id;
 	private String name;
 	private String cpf;
 	private Double income;
+	
+	@JsonFormat(pattern = "yyyy/MM/dd")
 	private LocalDate birthDate;
 	private Integer children;
 	
